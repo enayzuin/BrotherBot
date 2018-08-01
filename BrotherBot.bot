@@ -1,0 +1,24 @@
+{
+    "name": "BrotherBot",
+    "description": "",
+    "secretKey": "",
+    "services": [
+        {
+            "appId": "",
+            "id": "be2e8480-94f8-11e8-a172-7b2458bdf4a1",
+            "type": "endpoint",
+            "appPassword": "",
+            "endpoint": "http://localhost:3978/api/messages",
+            "name": "http://localhost:3978/api/messages"
+        },
+        {
+            "kbId": "02ebdb19-f395-4c30-90b4-552b07ec73ca",
+            "name": "KB_Fabrica",
+            "type": "qna",
+            "subscriptionKey": "c383e1bb933a494aadb89dfa66fe0588",
+            "id": "01787840-94f9-11e8-83f7-e1794ccd38b0",
+            "endpointKey": "EndpointKey 1c21189c-b265-4e8c-8cc2-d2b009c6457e",
+            "hostname": "https://qnafabrica.azurewebsites.net/qnamaker"
+        }
+    ]
+}
