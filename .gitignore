@@ -1,3 +1,7 @@
 node_modules/
 *.js.map
 package-lock.json
+
+.settings/
+.vscode/
+npm-debug.log
