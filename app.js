@@ -81,14 +81,14 @@ var basicQnAMakerDialog = new builder_cognitiveservices.QnAMakerDialog({
 
 bot.dialog('/greetings', [
     function (session) {
-        var message = 'Oi, eu sou o BrotherBot, estou aqui para te ajudar a conseguir informações.';
+        var message = 'Oi, eu sou o BroBot. Estou aqui para te ajudar a conseguir informações.';
         session.send(message);
         message = 'Qual seu nome?'
         builder.Prompts.text(session, message);
         flag = 1;
     },
     function (session, results) {
-        session.endDialog(`Olá, ${results.response}! Pode fazer sua pergunta.`);
+        session.endDialog(`Fala, ${results.response}! Pode fazer sua pergunta.`);
     }
 ]);
 
@@ -103,6 +103,10 @@ bot.dialog('/', function (session, args) {
         console.log('To dentro');
         savedAddress = session.message.address;
         startProactiveDialog(savedAddress);
+    } else if (session.message.text === "Tchau" || session.message.text === "Fim") {
+        flag = 0
+        console.log('Chamando qna');
+        session.beginDialog('QnAMakerDialog');
     } else {
         console.log('Chamando qna');
         session.beginDialog('QnAMakerDialog');
