@@ -137,6 +137,41 @@ bot.dialog('QnAMakerDialog', //basicQnAMakerDialog);
         }
     });
 
+//Enay está mexendo daqui pra baixo
+    basicQnAMakerDialog.respondFromQnAMakerResult = function(session, qnaMakerResult){
+        // Save the question
+        var question = session.message.text;
+        session.conversationData.userQuestion = question;
+        // boolean to check if the result is formatted for a card
+        var isCardFormat = qnaMakerResult.answers[0].answer.includes(';');
+        if(!isCardFormat){
+            // Not semi colon delimited, send a normal text response 
+            session.send(qnaMakerResult.answers[0].answer);
+        }else if(qnaMakerResult.answers && qnaMakerResult.score >= 0.5){
+            
+            var qnaAnswer = qnaMakerResult.answers[0].answer;
+            
+                    var qnaAnswerData = qnaAnswer.split(';');
+                    var title = qnaAnswerData[0];
+                    var description = qnaAnswerData[1];
+                    var url = qnaAnswerData[2];
+                    var imageURL = qnaAnswerData[3];
+            
+                    var msg = new builder.Message(session)
+                    msg.attachments([
+                        new builder.HeroCard(session)
+                        .title(title)
+                        .subtitle(description)
+                        .images([builder.CardImage.create(session, imageURL)])
+                        .buttons([
+                            builder.CardAction.openUrl(session, url, "Entenda melhor")
+                        ])
+                    ]);
+            }
+        session.send(msg).endDialog();
+    }
+    bot.dialog('QnAMakerDialog', basicQnAMakerDialog);
+
 /* // Azure Search provider
 var azureSearchClient = AzureSearch.create('qnafabrica-asv6uw2veotpxvm', '319E59B619DD5E4A6450B55FFC4F1A45', 'botfabrica');
 var ResultsMapper = SearchLibrary.defaultResultsMapper(ToSearchHit);
